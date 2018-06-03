@@ -17,6 +17,8 @@ implementation {
 	NotifyTime = GNSS.NotifyTime;
 	NotifyCoordinates = GNSS.NotifyCoordinates;
 
+	components TinyNmeaC;
+
 	components Atm128Uart1C as Uart1;
 	GNSS.BaudRate      -> Uart1.UartBaudRate;
 	GNSS.SerialControl -> Uart1.StdControl;

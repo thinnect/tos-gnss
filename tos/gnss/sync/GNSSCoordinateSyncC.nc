@@ -12,6 +12,8 @@ implementation {
 
 	components new GNSSCoordinateSyncP();
 
+	components TinyHaversineC;
+
 	components GlobalPositioningSystemC;
 	GNSSCoordinateSyncP.NotifyCoordinates -> GlobalPositioningSystemC.NotifyCoordinates;
 
