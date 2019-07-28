@@ -45,10 +45,17 @@ implementation {
 		call NotifyCoordinates.enable();
 	}
 
+	// Take the (d)ddmm.mmmmm format and convert to dd.dddddd * 10E6
+	int32_t convert_nmea_to_degrees(int32_t ddmm_mmmm) {
+		int32_t degrees = ddmm_mmmm / 1E6L;
+		degrees *= 1E6L; // Separate line, so compiler would not get rid of div and multiply with same number?
+		return degrees + 100*(ddmm_mmmm - degrees)/60;
+	}
+
 	event void NotifyCoordinates.notify(nmea_coordinates_t* coords) {
 		if((coords->mode == 'A')||(coords->mode == 'D')) {
-			int64_t sum_latitude = (int64_t)m_avg_latitude*m_avg_count + coords->latitude;
-			int64_t sum_longitude = (int64_t)m_avg_longitude*m_avg_count + coords->longitude;
+			int64_t sum_latitude = (int64_t)m_avg_latitude*m_avg_count + convert_nmea_to_degrees(coords->latitude);
+			int64_t sum_longitude = (int64_t)m_avg_longitude*m_avg_count + convert_nmea_to_degrees(coords->longitude);
 			m_avg_count++;
 
 			m_avg_latitude = sum_latitude / m_avg_count;
