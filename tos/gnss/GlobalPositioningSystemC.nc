@@ -2,6 +2,7 @@
  * @author Raido Pahtma
  * @license MIT
  **/
+#include "time64.h"
 #include "tiny_nmea.h"
 configuration GlobalPositioningSystemC {
 	provides {
